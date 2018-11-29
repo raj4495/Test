@@ -39,4 +39,4 @@ phases:
 artifacts:
   type: zip
   files:
-    - cloud-deployment.yaml
+    - SourceArtifact/*
