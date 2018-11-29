@@ -1,0 +1,42 @@
+version: 0.2
+phases:
+  pre_build:
+    commands:
+      - echo "Validating CFN templates"
+      - echo "Validating cloud-development.yaml" 
+      # - echo "Validating CloudFormationPackage.yaml"
+      # - aws cloudformation validate-template --template-body file://CloudFormationPackage.yaml
+      - echo $BuildOutput_S3_Bucket
+      # This environment variable should be set in Code Pipeline build stage for each environment (prod, dev, test, staging)
+      # prod: $BuildOutput_S3_Bucket = onelink-cloud-deployment
+      # dev: $BuildOutput_S3_Bucket = onelink-cloud-deployment-dev
+      # test: $BuildOutput_S3_Bucket = onelink-cloud-deployment-Test
+      # staging: $BuildOutput_S3_Bucket = onelink-cloud-deployment-staging
+      # all the above s4 buckets must be created for each environment before Code Pipeline is run
+      # - BUCKET=${BuildOutput_S3_Bucket:-"onelink-command-center"} #if environment variable BuildOutput_S3_Bucket is not defined or empty, use the default
+      # upload file to s3 bucket
+      # - aws s3 cp "cloud-development.yaml" "s3://$BUCKET/"
+      # - aws cloudformation validate-template --template-url https://s3.amazonaws.com/$BUCKET/cloud-development.yaml
+      # - echo "Copying child templates to s3 bucket"
+      # - aws s3 cp "CloudFormationPackage.yaml" "s3://$BUCKET/"
+      # - aws s3 cp "CloudFormationElasticBean.yaml" "s3://$BUCKET/"
+      # - aws s3 cp "api-gateway.yaml" "s3://$BUCKET/"
+      # - echo "Validating CloudFormationPackage.yaml"
+      # - aws cloudformation validate-template --template-url https://s3.amazonaws.com/$BUCKET/CloudFormationPackage.yaml
+      # - echo "Validating CloudFormationElasticBean.yaml"
+      # - aws cloudformation validate-template --template-url https://s3.amazonaws.com/$BUCKET/CloudFormationElasticBean.yaml
+      # - echo "Validating api-gateway.yaml"
+      # - aws cloudformation validate-template --template-url https://s3.amazonaws.com/$BUCKET/api-gateway.yaml
+      # - echo "Replacing TEMPLATE_BUCKET_PLACEHOLDER in master template with actual bucket $BUCKET"
+      # - sed -i -e "s/TEMPLATE_BUCKET_PLACEHOLDER/$BUCKET/" cloud-development.yaml
+      # - cat cloud-development.yaml | grep CloudFormationPackage
+
+  build:
+    commands:
+      # - aws cloudformation package --template-file CloudFormationElasticBean.yaml --s3-bucket $BUCKET --output-template-file CloudFormationElasticBean-deployment.yaml
+      # - aws cloudformation package --template-file cloud-development.yaml --s3-bucket $BUCKET --output-template-file cloud-deployment.yaml
+      # - cat cloud-deployment.yaml
+artifacts:
+  type: zip
+  files:
+    - cloud-deployment.yaml
