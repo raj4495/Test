@@ -13,11 +13,11 @@ phases:
       # test: $BuildOutput_S3_Bucket = onelink-cloud-deployment-Test
       # staging: $BuildOutput_S3_Bucket = onelink-cloud-deployment-staging
       # all the above s4 buckets must be created for each environment before Code Pipeline is run
-      # - BUCKET=${BuildOutput_S3_Bucket:-"onelink-command-center"} #if environment variable BuildOutput_S3_Bucket is not defined or empty, use the default
+      - BUCKET=${BuildOutput_S3_Bucket:-"onelink-cc-deployment"} #if environment variable BuildOutput_S3_Bucket is not defined or empty, use the default
       # upload file to s3 bucket
-      # - aws s3 cp "cloud-development.yaml" "s3://$BUCKET/"
-      # - aws cloudformation validate-template --template-url https://s3.amazonaws.com/$BUCKET/cloud-development.yaml
-      # - echo "Copying child templates to s3 bucket"
+      - aws s3 cp "CloudFormation.yaml" "s3://$BUCKET/"
+      - aws cloudformation validate-template --template-url https://s3.amazonaws.com/$BUCKET/CloudFormation.yaml
+      - echo "Copying child templates to s3 bucket"
       # - aws s3 cp "CloudFormationPackage.yaml" "s3://$BUCKET/"
       # - aws s3 cp "CloudFormationElasticBean.yaml" "s3://$BUCKET/"
       # - aws s3 cp "api-gateway.yaml" "s3://$BUCKET/"
@@ -33,6 +33,10 @@ phases:
 
   build:
     commands:
-      # - aws cloudformation package --template-file CloudFormationElasticBean.yaml --s3-bucket $BUCKET --output-template-file CloudFormationElasticBean-deployment.yaml
+      - aws cloudformation package --template-file CloudFormation.yaml --s3-bucket $BUCKET --output-template-file cloud-cc-deployment.yaml
       # - aws cloudformation package --template-file cloud-development.yaml --s3-bucket $BUCKET --output-template-file cloud-deployment.yaml
       # - cat cloud-deployment.yaml
+artifacts:
+  type: zip
+  files:
+    - cloud-cc-deployment.yaml
