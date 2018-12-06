@@ -7,9 +7,11 @@ Resources:
       KeyName: dev-cc
       SecurityGroups:
         - !Ref AppNodeSG
+      IamInstanceProfile: !GetAtt EC2PrimeCCRole.Arn
+      EC2PrimeCCRole
       UserData: !Base64 |
         #!/bin/bash
-        apt-get install vim -y
+        apt-get install node
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -23,3 +25,31 @@ Resources:
         FromPort: '22'
         ToPort: '22'
         CidrIp: 0.0.0.0/0
+
+  EC2PrimeCCRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: prime-cc-ec2-role
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          -
+            Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - sts:AssumeRole
+      Policies:
+        -
+          PolicyName: prime-cc-ec2-policy
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Action:
+                  - s3:GetObject
+                Resource:
+                  - "*"
+                Effect: Allow
+
+
