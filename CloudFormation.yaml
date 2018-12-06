@@ -7,7 +7,7 @@ Resources:
       KeyName: dev-cc
       SecurityGroups:
         - !Ref AppNodeSG
-      IamInstanceProfile: !GetAtt EC2PrimeCCRole.Arn
+      IamInstanceProfile: !Ref EC2CCProfile
       UserData: !Base64 |
         #!/bin/bash
         apt-get install node
@@ -24,7 +24,12 @@ Resources:
         FromPort: '22'
         ToPort: '22'
         CidrIp: 0.0.0.0/0
-
+  EC2CCProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: "/"
+      Roles:
+      - !Ref EC2PrimeCCRole
   EC2PrimeCCRole:
     Type: AWS::IAM::Role
     Properties:
@@ -50,5 +55,4 @@ Resources:
                 Resource:
                   - "*"
                 Effect: Allow
-
 
