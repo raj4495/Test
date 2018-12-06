@@ -7,7 +7,7 @@ Resources:
       KeyName: dev-cc
       SecurityGroups:
         - !Ref AppNodeSG
-      IamInstanceProfile: !Get EC2PrimeCCRole.Arn
+      IamInstanceProfile: !GetAtt EC2PrimeCCRole.Arn
       UserData: !Base64 |
         #!/bin/bash
         apt-get install node
