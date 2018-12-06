@@ -33,10 +33,10 @@ phases:
 
   build:
     commands:
-      - aws cloudformation package --template-file CloudFormation.yaml --s3-bucket $BUCKET --output-template-file cloud-cc-deployment.yaml
+      - aws cloudformation package --template-file CloudFormation.yaml --s3-bucket $BUCKET --output-template-file cc.yaml
       # - aws cloudformation package --template-file cloud-development.yaml --s3-bucket $BUCKET --output-template-file cloud-deployment.yaml
       # - cat cloud-deployment.yaml
 artifacts:
   type: zip
   files:
-    - cloud-cc-deployment.yaml
+    - cc.yaml
