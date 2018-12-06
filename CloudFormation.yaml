@@ -9,7 +9,7 @@ Resources:
         - !Ref AppNodeSG
       UserData: !Base64 |
         #!/bin/bash
-        apt-get install node
+        apt-get install vim -y
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
