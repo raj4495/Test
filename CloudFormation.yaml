@@ -10,7 +10,7 @@ Resources:
       IamInstanceProfile: !Ref EC2CCProfile
       UserData: !Base64 |
         #!/bin/bash
-        apt-get install node
+        apt-get install vim
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
