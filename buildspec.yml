@@ -3,7 +3,7 @@ phases:
   pre_build:
     commands:
       - echo "Validating CFN templates"
-      - echo "Validating cloud-development.yaml" 
+      - echo "Validating the cloud-development.yaml" 
       # - echo "Validating CloudFormationPackage.yaml"
       # - aws cloudformation validate-template --template-body file://CloudFormationPackage.yaml
       - echo $BuildOutput_S3_Bucket
