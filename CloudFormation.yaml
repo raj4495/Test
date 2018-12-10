@@ -19,6 +19,7 @@ Resources:
         echo $zipname
         cd prime_cc
         chmod 0777 /home/ubuntu/prime_cc/$zipname
+        sleep 5
         unzip -o /home/ubuntu/prime_cc/$zipname
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
