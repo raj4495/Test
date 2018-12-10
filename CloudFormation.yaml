@@ -18,6 +18,7 @@ Resources:
         zipname="$(cut -d'/' -f3 <<<"$key")"
         echo $zipname
         cd prime_cc
+        chmod 0777 /home/ubuntu/prime_cc/$zipname
         unzip -o /home/ubuntu/prime_cc/$zipname
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
