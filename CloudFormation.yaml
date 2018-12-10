@@ -11,7 +11,7 @@ Resources:
       UserData: !Base64 |
         #cloud-boothook
         #!/bin/bash
-        rm -rf /home/ubuntu/prime_cc
+        sudo rm -rf /home/ubuntu/prime_cc
         mkdir /home/ubuntu/prime_cc
         key=`aws s3 ls s3://onelink-cc-deployment/test-cc/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
         aws s3 cp s3://onelink-cc-deployment/$key /home/ubuntu/prime_cc/
@@ -20,7 +20,8 @@ Resources:
         echo "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
         cd prime_cc
         chmod 0777 /home/ubuntu/prime_cc/$zipname
-        unzip -o /home/ubuntu/prime_cc/$zipname
+        sudo unzip -o /home/ubuntu/prime_cc/$zipname
+        exit 0
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
