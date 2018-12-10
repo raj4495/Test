@@ -13,18 +13,17 @@ Resources:
         #!/bin/bash
         apt-get install zip -y
         apt-get install python3-venv -y
-        # cd /home/ubuntu
-        mkdir prime_cc
+        mkdir /home/ubuntu/prime_cc
         key=`aws s3 ls s3://onelink-cc-deployment/test-cc/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
         aws configure set s3.signature_version s3v4
         aws s3 cp s3://onelink-cc-deployment/$key /home/ubuntu/prime_cc/
         zip_name="$(cut -d'/' -f3 <<<"$key")"
         cd prime_cc
         unzip /home/ubuntu/prime_cc/$zip_name
-        python3 -m venv venv
-        venv/bin/pip3 install -e .
-        rm -rf /home/ubuntu/prime_cc/$zip_name
-        venv/bin/pserve development.ini
+        # python3 -m venv venv
+        # venv/bin/pip3 install -e .
+        # rm -rf /home/ubuntu/prime_cc/$zip_name
+        # venv/bin/pserve development.ini
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
