@@ -18,8 +18,8 @@ Resources:
         aws configure set s3.signature_version s3v4
         aws s3 cp s3://onelink-cc-deployment/$key /home/ubuntu/prime_cc/
         zip_name="$(cut -d'/' -f3 <<<"$key")"
-        cd prime_cc
         unzip /home/ubuntu/prime_cc/$zip_name
+        cd prime_cc
         # python3 -m venv venv
         # venv/bin/pip3 install -e .
         # rm -rf /home/ubuntu/prime_cc/$zip_name
@@ -64,7 +64,7 @@ Resources:
             Version: 2012-10-17
             Statement:
               - Action:
-                  - s3:GetObject
+                  - "*"
                 Resource:
                   - "*"
                 Effect: Allow
