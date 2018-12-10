@@ -21,7 +21,6 @@ Resources:
         unzip -o /home/ubuntu/prime_cc/$zipname
         python3 -m venv venv
         venv/bin/pip3 install -e .
-        rm -rf /home/ubuntu/prime_cc/$zip_name
         venv/bin/pserve development.ini
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
