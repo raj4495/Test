@@ -24,7 +24,8 @@ Resources:
         mv /home/ubuntu/prime_cc/$zipname /home/ubuntu/prime_cc/raj.zip
         echo $?
         unzip -o /home/ubuntu/prime_cc/raj.zip
-        echo $? 
+        echo $?
+        ls -l
         echo "end" 
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
