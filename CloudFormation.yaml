@@ -18,7 +18,7 @@ Resources:
         cd prime_cc
         echo "before unzip" >> /home/ubuntu/output.txt
         zipname=`ls *.zip`
-        sudo chmod a+x $zipname
+        sleep 6
         echo $? >> /home/ubuntu/output.txt
         unzip $zipname
         echo $? >> /home/ubuntu/output.txt
