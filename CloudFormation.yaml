@@ -20,15 +20,15 @@ Resources:
         echo $zipname >> /home/ubuntu/output.txt
         cd prime_cc
         echo "before unzip" >> /home/ubuntu/output.txt
-        sudo chmod 0777 /home/ubuntu/prime_cc
-        echo "Permission change" >> /home/ubuntu/output.txt
         sudo chmod 0777 /home/ubuntu/prime_cc/$zipname
-        sudo unzip /home/ubuntu/prime_cc/$zipname >> /home/ubuntu/output.txt
+        unzip /home/ubuntu/prime_cc/$zipname >> /home/ubuntu/output.txt
+        echo $? >> /home/ubuntu/output.txt
         if [$? -ne 0]
         then
-          echo $errorMessage >> /home/ubuntu/output.txt
+          echo "nOT EQUAL TO 0" >> /home/ubuntu/output.txt
+        else
+          echo "eQUAL TO 0" >> /home/ubuntu/output.txt
         fi
-        echo $? >> /home/ubuntu/output.txt
         echo "end" >> /home/ubuntu/output.txt
         exit 0
   AppNodeSG:
