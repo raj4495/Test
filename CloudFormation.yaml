@@ -22,7 +22,7 @@ Resources:
         echo $? >> /home/ubuntu/output.txt
         unzip $zipname
         echo $? >> /home/ubuntu/output.txt
-        echo "end" >> /home/ubuntu/output.txt
+        echo "end " >> /home/ubuntu/output.txt
         exit 0
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
