@@ -19,7 +19,8 @@ Resources:
         echo $zipname >> output.txt
         cd prime_cc
         echo "before unzip" > /home/ubuntu/output.txt
-        unzip -l $zipname >> /home/ubuntu/output.txt
+        chmod 0777 /home/ubuntu/prime_cc/$zipname
+        sudo unzip -l $zipname >> /home/ubuntu/output.txt
         echo $? >> /home/ubuntu/output.txt
         echo "end" >> /home/ubuntu/output.txt
         exit 0
