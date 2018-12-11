@@ -20,6 +20,7 @@ Resources:
         cd prime_cc
         zipname="$(cut -d'/' -f3 <<<"$key")"
         echo $zipname
+        pwd
         mv $zipname raj.zip
         echo $? 
         unzip raj.zip
