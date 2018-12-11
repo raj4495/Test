@@ -21,9 +21,9 @@ Resources:
         zipname="$(cut -d'/' -f3 <<<"$key")"
         echo $zipname
         pwd
-        mv $zipname raj.zip
-        echo $? 
-        unzip raj.zip
+        mv /home/ubuntu/prime_cc/$zipname /home/ubuntu/prime_cc/raj.zip
+        echo $?
+        unzip /home/ubuntu/prime_cc/raj.zip
         echo $? 
         echo "end" 
   AppNodeSG:
