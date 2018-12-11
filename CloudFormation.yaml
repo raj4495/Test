@@ -18,6 +18,8 @@ Resources:
         cd prime_cc
         echo "before unzip" >> /home/ubuntu/output.txt
         zipname=`ls *.zip`
+        chmod a+x $zipname
+        echo $? >> /home/ubuntu/output.txt
         unzip $zipname
         echo $? >> /home/ubuntu/output.txt
         echo "end" >> /home/ubuntu/output.txt
