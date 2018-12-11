@@ -10,9 +10,8 @@ Resources:
       IamInstanceProfile: !Ref EC2CCProfile
       UserData: !Base64 |
         #cloud-boothook
-        #!/bin/bash -v
-        set -x
-        
+        #!/bin/bash -xe
+        exec > /etc/setup_log.txt 2> /etc/setup_err.txt
         sleep 10s
         rm -rf /home/ubuntu/prime_cc
         mkdir /home/ubuntu/prime_cc
