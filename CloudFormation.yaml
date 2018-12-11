@@ -17,7 +17,7 @@ Resources:
         mkdir /home/ubuntu/prime_cc
         key=`aws s3 ls s3://onelink-cc-deployment/test-cc/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
         aws s3 cp s3://onelink-cc-deployment/$key /home/ubuntu/prime_cc/
-        cd prime_cc
+        cd /home/ubuntu/prime_cc
         zipname="$(cut -d'/' -f3 <<<"$key")"
         echo $zipname
         pwd
