@@ -24,6 +24,11 @@ Resources:
         echo "Permission change" >> /home/ubuntu/output.txt
         sudo chmod 0777 /home/ubuntu/prime_cc/$zipname
         sudo unzip /home/ubuntu/prime_cc/$zipname >> /home/ubuntu/output.txt
+        if [$? -ne 0]
+          echo "Success" >> /home/ubuntu/output.txt
+        then
+          echo $errorMessage >> /home/ubuntu/output.txt
+        fi
         echo $? >> /home/ubuntu/output.txt
         echo "end" >> /home/ubuntu/output.txt
         exit 0
