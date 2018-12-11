@@ -27,7 +27,7 @@ Resources:
         then
           echo "Equal to 0" >> /home/ubuntu/output.txt
         else
-          echo "Not eQUAL TO 0" >> /home/ubuntu/output.txt
+          echo "[Error] Not eQUAL TO 0" 1>&2 >> /home/ubuntu/output.txt
         fi
         echo "end" >> /home/ubuntu/output.txt
         exit 0
