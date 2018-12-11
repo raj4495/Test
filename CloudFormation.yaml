@@ -23,7 +23,7 @@ Resources:
         pwd
         mv /home/ubuntu/prime_cc/$zipname /home/ubuntu/prime_cc/raj.zip
         echo $?
-        unzip /home/ubuntu/prime_cc/raj.zip
+        unzip -o /home/ubuntu/prime_cc/raj.zip
         echo $? 
         echo "end" 
   AppNodeSG:
