@@ -11,6 +11,9 @@ Resources:
       UserData: !Base64 |
         #cloud-boothook
         #!/bin/bash -v
+        set -x
+        
+        sleep 10s
         rm -rf /home/ubuntu/prime_cc
         mkdir /home/ubuntu/prime_cc
         key=`aws s3 ls s3://onelink-cc-deployment/test-cc/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
@@ -20,7 +23,7 @@ Resources:
         zipname=`ls *.zip`
         sleep 6s
         echo $? >> /home/ubuntu/output.txt
-        unzip $zipname
+        unzip $zipname >> /home/ubuntu/output.txt
         echo $? >> /home/ubuntu/output.txt
         echo "end " >> /home/ubuntu/output.txt
         exit 0
