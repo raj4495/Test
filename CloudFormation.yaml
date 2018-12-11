@@ -16,11 +16,12 @@ Resources:
         key=`aws s3 ls s3://onelink-cc-deployment/test-cc/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
         aws s3 cp s3://onelink-cc-deployment/$key /home/ubuntu/prime_cc/
         zipname="$(cut -d'/' -f3 <<<"$key")"
+        echo "test" > output.txt
         echo $zipname >> output.txt
         cd prime_cc
         echo "before unzip" > /home/ubuntu/output.txt
         chmod 0777 /home/ubuntu/prime_cc/$zipname
-        sudo unzip -l $zipname >> /home/ubuntu/output.txt
+        sudo unzip -d $zipname /home/ubuntu/prime_cc >> /home/ubuntu/output.txt
         echo $? >> /home/ubuntu/output.txt
         echo "end" >> /home/ubuntu/output.txt
         exit 0
