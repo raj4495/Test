@@ -21,7 +21,7 @@ Resources:
         cd prime_cc
         echo "before unzip" >> /home/ubuntu/output.txt
         sudo chmod 0777 /home/ubuntu/prime_cc/$zipname
-        unzip /home/ubuntu/prime_cc/$zipname >> /home/ubuntu/output.txt
+        sudo unzip /home/ubuntu/prime_cc/$zipname >> /home/ubuntu/output.txt
         echo $? >> /home/ubuntu/output.txt
         if ["$?" = "0"]
         then
