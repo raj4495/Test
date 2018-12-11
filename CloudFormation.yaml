@@ -20,15 +20,8 @@ Resources:
         zipname=`ls *.zip`
         unzip $zipname
         echo $? >> /home/ubuntu/output.txt
-        if ["$?" = "0"]
-        then
-          echo "Equal to 0 " >> /home/ubuntu/output.txt
-        else
-          echo "[Error] Not eQUAL TO 0" 1>&2 >> /home/ubuntu/output.txt
-        fi
         echo "end" >> /home/ubuntu/output.txt
         exit 0
-
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
