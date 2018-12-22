@@ -3,7 +3,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
-      ImageId: ami-0f9cf087c1f27d9b1
+      ImageId: ami-0309ea2b0f3e48ca7
       KeyName: dev-cc
       SecurityGroups:
         - !Ref AppNodeSG
@@ -11,24 +11,24 @@ Resources:
       UserData: !Base64 |
         #cloud-boothook
         #!/bin/bash -xe
-        rm /var/lib/cloud/instances/*/sem/config_scripts_user
         exec > /etc/setup_log.txt 2> /etc/setup_err.txt
         sleep 5s
+        echo "User_Data starts"
         rm -rf /home/ubuntu/prime_cc
         mkdir /home/ubuntu/prime_cc
-        key=`aws s3 ls s3://onelink-cc-deployment/test-cc/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
-        aws s3 cp s3://onelink-cc-deployment/$key /home/ubuntu/prime_cc/
+        key=`aws s3 ls s3://onelink-cc-deployment-dev/dev-command-center/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
+        aws s3 cp s3://onelink-cc-deployment-dev/$key /home/ubuntu/prime_cc/
         cd /home/ubuntu/prime_cc
         zipname="$(cut -d'/' -f3 <<<"$key")"
         echo $zipname
-        pwd
-        mv /home/ubuntu/prime_cc/$zipname /home/ubuntu/prime_cc/raj.zip
+        mv /home/ubuntu/prime_cc/$zipname /home/ubuntu/prime_cc/cc.zip
+        unzip -o /home/ubuntu/prime_cc/cc.zip -d /home/ubuntu/prime_cc/
         echo $?
-        unzip -o /home/ubuntu/prime_cc/raj.zip -d /home/ubuntu/prime_cc/
-        echo $?
-        ls -l
-        echo "end"
-    Meta
+        python3 -m venv venv
+        venv/bin/pip3 install -e .
+        rm -rf cc.zip
+        aws configure set default.region us-east-1
+        venv/bin/pserve production.ini http_port=5000 &
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
@@ -42,6 +42,10 @@ Resources:
         FromPort: '22'
         ToPort: '22'
         CidrIp: 0.0.0.0/0
+      - IpProtocol: tcp
+        FromPort: '5000'
+        ToPort: '5000'
+        CidrIp: 0.0.0.0/0
   EC2CCProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
@@ -51,7 +55,12 @@ Resources:
   EC2PrimeCCRole:
     Type: AWS::IAM::Role
     Properties:
-      RoleName: prime-cc-ec2-role
+      RoleName: primeCC-ec2-role-dev
+      ManagedPolicyArns:
+        - "arn:aws:iam::aws:policy/AmazonCognitoPowerUser"
+        - "arn:aws:iam::aws:policy/AmazonS3FullAccess"
+        - "arn:aws:iam::aws:policy/AWSIoTFullAccess"
+        - "arn:aws:iam::aws:policy/AmazonDynamoDBFullAccess"
       AssumeRolePolicyDocument:
         Version: 2012-10-17
         Statement:
@@ -62,15 +71,3 @@ Resources:
                 - ec2.amazonaws.com
             Action:
               - sts:AssumeRole
-      Policies:
-        -
-          PolicyName: prime-cc-ec2-policy
-          PolicyDocument:
-            Version: 2012-10-17
-            Statement:
-              - Action:
-                  - "*"
-                Resource:
-                  - "*"
-                Effect: Allow
-
