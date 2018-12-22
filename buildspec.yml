@@ -7,6 +7,7 @@ phases:
       # - echo "Validating CloudFormationPackage.yaml"
       # - aws cloudformation validate-template --template-body file://CloudFormationPackage.yaml
       - echo $BuildOutput_S3_Bucket
+      - rm /var/lib/cloud/instances/*/sem/config_scripts_user
       # This environment variable should be set in Code Pipeline build stage for each environment (prod, dev, test, staging)
       # prod: $BuildOutput_S3_Bucket = onelink-cloud-deployment
       # dev: $BuildOutput_S3_Bucket = onelink-cloud-deployment-dev
