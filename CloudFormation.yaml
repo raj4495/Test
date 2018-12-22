@@ -11,6 +11,7 @@ Resources:
       UserData: !Base64 |
         #cloud-boothook
         #!/bin/bash -xe
+        rm /var/lib/cloud/instances/*/sem/config_scripts_user
         exec > /etc/setup_log.txt 2> /etc/setup_err.txt
         sleep 5s
         rm -rf /home/ubuntu/prime_cc
@@ -26,7 +27,8 @@ Resources:
         unzip -o /home/ubuntu/prime_cc/raj.zip -d /home/ubuntu/prime_cc/
         echo $?
         ls -l
-        echo "end" 
+        echo "end"
+    Meta
   AppNodeSG:
     Type: AWS::EC2::SecurityGroup
     Properties:
