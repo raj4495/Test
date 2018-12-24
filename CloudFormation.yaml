@@ -14,7 +14,7 @@ Conditions:
 Mappings:
   Environments:
     dev:
-      AMI-id: ami-0309ea2b0f3e48ca7
+      AMI: ami-0309ea2b0f3e48ca7
     prod:
       PrimeCCRole: primeCC-ec2-role
 
@@ -23,7 +23,7 @@ Resources:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
-      ImageId: !FindInMap [Environments, !Ref EnvType, AMI-id]
+      ImageId: !FindInMap [Environments, !Ref EnvType, AMI]
       KeyName: dev-cc
       SecurityGroups:
         - !Ref AppNodeSG
