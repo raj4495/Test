@@ -17,7 +17,7 @@ Resources:
         echo "User_Data starts"
         rm -rf /home/ubuntu/prime_cc
         mkdir /home/ubuntu/prime_cc
-        key=`aws s3 ls s3://onelink-cc-deployment-dev/dev-command-center/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
+        key=`aws s3 ls s3://onelink-cc-deployment-dev/Prime-CC-pipeline/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
         aws s3 cp s3://onelink-cc-deployment-dev/$key /home/ubuntu/prime_cc/
         cd /home/ubuntu/prime_cc
         zipname="$(cut -d'/' -f3 <<<"$key")"
