@@ -11,7 +11,7 @@ Resources:
       UserData: !Base64 |
         #cloud-boothook
         #!/bin/bash -xe
-        echo "hello"
+        echo "hello "
         exec > /etc/setup_log.txt 2> /etc/setup_err.txt
         sleep 5s
         echo "User_Data starts"
