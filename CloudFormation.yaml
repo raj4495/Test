@@ -7,13 +7,23 @@ Parameters:
       - prod
       - dev
     ConstraintDescription: must specify prod, dev, test, or staging.
+Conditions:
+  CreateDevResources: !Equals [!Ref EnvType, dev] #if EnvType is dev
+  CreateProdResources: !Equals [!Ref EnvType, prod] #if EnvType is prod
+  
+Mappings:
+  Environments:
+    dev:
+      AMI-id: ami-0309ea2b0f3e48ca7
+    prod:
+      PrimeCCRole: primeCC-ec2-role
 
 Resources:
   AppNode:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: t2.micro
-      ImageId: ami-0309ea2b0f3e48ca7
+      ImageId: !FindInMap [Environments, !Ref EnvType, AMI-id]
       KeyName: dev-cc
       SecurityGroups:
         - !Ref AppNodeSG
