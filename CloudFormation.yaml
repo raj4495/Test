@@ -1,3 +1,13 @@
+Parameters:
+  EnvType:
+    Description: Environment type.
+    Default: dev
+    Type: String
+    AllowedValues:
+      - prod
+      - dev
+    ConstraintDescription: must specify prod, dev, test, or staging.
+
 Resources:
   AppNode:
     Type: AWS::EC2::Instance
@@ -15,6 +25,7 @@ Resources:
         exec > /etc/setup_log.txt 2> /etc/setup_err.txt
         sleep 5s
         echo "User_Data starts"
+        varaible = !Ref EnvType
         rm -rf /home/ubuntu/prime_cc
         mkdir /home/ubuntu/prime_cc
         key=`aws s3 ls s3://onelink-cc-deployment-dev/Prime-CC-pipeline/MyApp/ --recursive | sort | tail -n 1 | awk '{print $4}'`
