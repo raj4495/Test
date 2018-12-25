@@ -7,7 +7,7 @@ phases:
       # - echo "Validating CloudFormationPackage.yaml"
       # - aws cloudformation validate-template --template-body file://CloudFormationPackage.yaml
       - echo $BuildOutput_S3_Bucket
-      - aws ec2 reboot-instances --instance-ids i-022432dd6ab9f14fe
+      # - aws ec2 reboot-instances --instance-ids i-022432dd6ab9f14fe
       # This environment variable should be set in Code Pipeline build stage for each environment (prod, dev, test, staging)
       # prod: $BuildOutput_S3_Bucket = onelink-cloud-deployment
       # dev: $BuildOutput_S3_Bucket = onelink-cloud-deployment-dev
